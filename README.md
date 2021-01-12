@@ -1,2 +1,1 @@
-# 2020-Stock-market-crash
-This project uses stata to show how S&amp;P 500 stock such Apple has been affected due to the covid-19 crisis. I performed regression analysis and used log transformational variable along with lag variable as well as a slope dummy variable such as covid. More so, I used time series methods such prediction function, dwatson test, Breusch-Godfrey test to check the results. 
+This project uses stata to show how S&P 500 stock such Apple has been affected due to the covid-19 crisis. I performed regression analysis and used log transformational variable along with lag variable as well as a slope dummy variable such as covid. More so, I used time series methods such prediction function, dwatson test, Breusch-Godfrey test to check the results. 
