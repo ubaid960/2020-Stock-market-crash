@@ -1,23 +1,48 @@
-# ignore everything in the root except the "wp-content" directory.
-!wp-content/
+Ubaid Sheikh
 
-# ignore everything in the "wp-content" directory, except:
-# "mu-plugins", "plugins", "themes" directory
-wp-content/*
-!wp-content/mu-plugins/
-!wp-content/plugins/
-!wp-content/themes/
+** Final Project Do File
 
-# ignore these plugins
-wp-content/plugins/hello.php
+**Downloaded the S&P 500 data from Yahoo Finance
+getsymbols AAPL ^GSPC, fy(2019) fm(9) yahoo
 
-# ignore specific themes
-wp-content/themes/twenty*/
+sum adjclose_AAPL volume_AAPL adjclose__GSPC volume__GSPC 
+scatter adjclose_AAPL daten
+histogram adjclose_AAPL, normal
 
-# ignore node dependency directories
-node_modules/
+bro
 
-# ignore log files and databases
-*.log
-*.sql
-*.sqlite
+gen time=_n
+gen covid=0
+replace covid=1 if time >105
+
+**1st Initial regression
+reg adjclose_AAPL volume_AAPL adjclose__GSPC volume__GSPC 
+
+**2nd Regression with lag variable and dummy variable
+reg adjclose_AAPL volume_AAPL adjclose__GSPC volume__GSPC L.adjclose__GSPC covid 
+
+**check for skewness for possible transformation 
+tabstat adjclose_AAPL volume_AAPL adjclose__GSPC volume__GSPC, stats(sk)
+
+**generate logs
+gen log_adjclose_AAPL
+gen log_volume_AAPL
+gen log_volume__GSPC
+
+**3rd new regression with log transformation
+reg log_adjclose_AAPL log_volume_AAPL adjclose__GSPC log_volume__GSPC covid
+
+**4th new regression with slope dummy 
+reg log_adjclose_AAPL log_volume_AAPL adjclose_AAPL log_volume__GSPC L.adjclose__GSPC covid covid#c.adjclose__GSPC
+
+**get residuals and squared residuals
+predict uhat,resid
+gen uhat2=uhat^2
+
+**dwatson test
+estate dwatson
+
+**Breusch-Godfrey test 
+reg uhat l.uhat l2.uhat adjclose_AAPL
+
+
